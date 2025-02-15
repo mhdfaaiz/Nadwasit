@@ -95,7 +95,7 @@
                     <div class="p-5 wow fadeInUp" data-wow-delay="0.2s">
                         <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>
                         <h1 class="text-white mb-4">Book A Table Online</h1>
-                        <form>
+                        <form id="reservationForm">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
@@ -105,8 +105,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="phone" class="form-control" id="email" placeholder="Your Phone Number">
-                                        <label for="email">Your Phone Number</label>
+                                        <input type="phone" class="form-control" id="phone" placeholder="Your Phone Number">
+                                        <label for="phone">Your Phone Number</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -117,16 +117,18 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="number" class="form-control" id="email" placeholder="No of People">
-                                        <label for="email">No of People</label>
+                                        <input type="number" class="form-control" id="people" placeholder="No of People">
+                                        <label for="people">No of People</label>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-floating">
                                         <select class="form-select" id="select1">
                                           <option value="1">Nadwasit Restaurant,Al Zahra, Ajman</option>
-                                          <option value="2">People 2</option>
-                                          <option value="3">People 3</option>
+                                          <option value="2">Nadwasit Restaurant,Industrial Area, Ajman</option>
+                                          <option value="3">Tareeq Wasit Restaurant, Maysaloon, Sharjah</option>
+                                          <option value="4">Century Express Restaurant, Garhoud, Dubai</option>
+                                          <option value="5">Spice Lab Restaurant, Al Barsha, Dubai</option>
                                         </select>
                                         <label for="select1">Select Restaurant</label>
                                       </div>
@@ -191,6 +193,48 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+
+    <!-- WhatsApp Message Script -->
+        <script>
+            document.getElementById("reservationForm").addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent actual form submission
+
+                // Get form values
+                let name = document.getElementById("name").value;
+                let phone = document.getElementById("phone").value;
+                let datetime = document.getElementById("datetime").value;
+                let people = document.getElementById("people").value;
+                let restaurant = document.getElementById("select1").options[document.getElementById("select1").selectedIndex].text;
+                let message = document.getElementById("message").value || "No special requests.";
+
+                // Restaurant-based phone number mapping
+                let restaurantPhones = {
+                    "Nadwasit Restaurant, Al Zahra, Ajman": "+971558902831",
+                    "Nadwasit Restaurant,Industrial Area, Ajman": "+971582909081",
+                    "Tareeq Wasit Restaurant, Maysaloon, Sharjah": "+971507826682",
+                    "Century Express Restaurant, Garhoud, Dubai": "+971545144224",
+                    "Spice Lab Restaurant, Al Barsha, Dubai": "+971561296309"
+                };
+
+                let phoneNumber = restaurantPhones[restaurant] || ""; // Default number
+
+                // Format the WhatsApp message
+                let whatsappMessage = `Hello, I would like to make a reservation.\n\n`
+                    + `*Name:* ${name}\n`
+                    + `*Phone:* ${phone}\n`
+                    + `*Date & Time:* ${datetime}\n`
+                    + `*No of People:* ${people}\n`
+                    + `*Restaurant:* ${restaurant}\n`
+                    + `*Special Request:* ${message}`;
+
+                // Encode message for URL
+                let encodedMessage = encodeURIComponent(whatsappMessage);
+                let whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+                // Open WhatsApp
+                window.open(whatsappURL, "_blank");
+            });
+        </script>
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

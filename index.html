@@ -30,6 +30,44 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- Responsive ad banner styles -->
+    <style>
+        /**
+         * Responsive advertisement banner using <picture> + object-fit: cover
+         * - Keeps full width
+         * - Uses clamp() to set a sensible min/ideal/max height so it looks good on all screens
+         * - Provides fallback and ensures good cropping behavior
+         */
+        .ad-banner {
+            width: 100%;
+            height: clamp(110px, 100vh, 660px); /* min 150px, preferred 70vh, max 560px */
+            overflow: hidden;
+            display: block;
+            background: #000; /* fallback color while image loads */
+        }
+
+        .ad-banner picture,
+        .ad-banner img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;           /* fill container and crop as needed */
+            object-position: center;     /* change to "center top" or "left center" to keep a focal area visible */
+        }
+
+        /* Slightly shorter on very small devices */
+        @media (max-width: 450px) {
+            .ad-banner { height: clamp(140px, 35vh, 420px); }
+        }
+
+        /* Optional: add subtle overlay text area if you want CTA over the image later */
+        .ad-banner__overlay {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -46,8 +84,8 @@
         <div class="container-xxl position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
                 <a href="" class="navbar-brand p-0">
-                    <img src="img/Logo.png">
-                    <img src="img/ENG-nbg.png" width="160">
+                    <img src="img/Logo.png" alt="Nadwasit Logo">
+                    <img src="img/ENG-nbg.png" width="160" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars"></span>
@@ -79,6 +117,29 @@
             </div>
         </div>
         <!-- Navbar & Hero End -->
+
+        <!-- Advertisement Banner (responsive) -->
+        <!--
+            Instructions:
+            - Place your advertisement image files in img/
+            - Recommended filenames:
+              - img/ad-800.jpg   (mobile / small)
+              - img/ad-1200.jpg  (tablet / medium)
+              - img/ad-2245.jpg  (full / desktop)   <-- your original 2245x1588 image
+            - Replace src/srcset filenames below with your exact filenames.
+            - If the image is decorative, use alt="". If it's meaningful content, provide descriptive alt text.
+        -->
+        <div class="ad-banner mb-5" role="img" aria-label="Advertisement banner for Nadwasit">
+            <picture>
+                <!-- small screens -->
+                <source media="(max-width: 420px)" srcset="img/advertisement.PNG">
+                <!-- medium screens -->
+                <source media="(max-width: 992px)" srcset="img/advertisement.PNG">
+                <!-- fallback / large -->
+                <img src="img/advertisement.PNG" alt="Nadwasit advertisement" loading="lazy">
+            </picture>
+        </div>
+        <!-- End Advertisement Banner -->
 
         <!-- Service Start -->
         <div class="container-xxl py-5">
@@ -173,22 +234,22 @@
                     <div class="col-lg-6">
                         <div class="row g-3">
                             <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="img/about-1.jpg">
+                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.1s" src="img/about-1.jpg" alt="">
                             </div>
                             <div class="col-6 text-start">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s" src="img/about-2.jpg" style="margin-top: 25%;">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.3s" src="img/about-2.jpg" style="margin-top: 25%;" alt="">
                             </div>
                             <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s" src="img/about-3.jpg">
+                                <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.5s" src="img/about-3.jpg" alt="">
                             </div>
                             <div class="col-6 text-end">
-                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s" src="img/about-4.jpg">
+                                <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.7s" src="img/about-4.jpg" alt="">
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <h5 class="section-title ff-secondary text-start text-primary fw-normal">About Us</h5>
-                        <h1 class="mb-4"><img src="img/Logo.png" width="220"><img src="img/ARA-nbg.png" width="220"></h1>
+                        <h1 class="mb-4"><img src="img/Logo.png" width="220" alt=""><img src="img/ARA-nbg.png" width="220" alt=""></h1>
                         <p class="mb-4">Nadwasit began its journey in 1989 at Sharjah, driven by a passion for exceptional food and warm hospitality. Through years of dedication and hard work, we have grown into a beloved culinary brand with 11 thriving branches across Sharjah, Ajman, and Dubai—and we continue to expand, bringing our signature flavors to even more food lovers.</p>
                         <div class="row g-4 mb-4">
                             <div class="col-sm-6">
